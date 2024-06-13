@@ -1,0 +1,33 @@
+<div class="m-5">
+    <h3 class="text-center">List of Task</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for task in tasks %}
+            <div class="col">
+                <div class="card border-info text-center">   
+                  <div class="card-body">
+                    <h5 class="card-title">Task ID: {{task.id}}</h5>
+                    <h3 class="card-title text-info">{{task.taskTitle}}</h3>
+                    <p class="card-text">{{task.assign_date}}</p>
+                    <hr>
+                    <p class="card-text">{{task.description}}</p>
+                    <p class="m-0">Categories: </p>
+                    {% for category in task.taskCategories.all %}
+                        <button class="btn btn-light m-1" disabled>{{ category.category_name }}</button>
+                    {% empty %}
+                        <button class="btn btn-light" disabled>No Categories</button>
+                     {% endfor %}
+                     <hr>
+                     {% if task.is_completed == True %}
+                        <button class="btn btn-info" disabled>Completed</button>
+                     {% else %}
+                        <a class="btn btn-warning mx-2" href="{% url "update_task" task.id %}" >Edit</a>
+                        <a class="btn btn-danger mx-2" href="{% url "delete_task" task.id %}" >Delete</a>
+                     {% endif %}
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+    </div>
+</div>
